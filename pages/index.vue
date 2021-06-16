@@ -3,7 +3,6 @@
     <div>
       <input type="text" v-model="text" />
       <button @click="draw">Draw</button>
-      <button @click="animation">Animaton</button>
       <button @click="reset">Reset</button>
     </div>
     <div class="text_field">
@@ -18,19 +17,6 @@
 export default {
   data: () => ({ texts: [], text: "", svgpaths: [], btnFlag: false }),
   methods: {
-    animation() {
-      this.btnFlag = true;
-      this.$anime({
-        targets: "svg path",
-        strokeDashoffset: [this.$anime.setDashoffset, 0],
-        easing: "easeInOutSine",
-        duration: 500,
-        delay: function(el, i) {
-          return i * 250;
-        }
-      });
-      console.log("text");
-    },
     draw() {
       this.texts = [];
       this.svgpaths = [];
@@ -38,29 +24,14 @@ export default {
       this.texts.forEach(e => {
         this.svgpaths.push(("000" + e.charCodeAt(0).toString(16)).slice(-5));
       });
-      console.log(this.svgpaths);
+      console.log("svgpaths:[" + this.svgpaths + "]");
+      this.btnFlag = true;
     },
     reset() {
       this.texts = [];
       this.text = "";
       this.svgpaths = [];
       this.btnFlag = false;
-    }
-  },
-  watch: {
-    btnFlag() {
-      if (this.btnFlag) {
-        console.log(this.svgpaths);
-        this.$anime({
-          targets: "svg path",
-          strokeDashoffset: [this.$anime.setDashoffset, 0],
-          easing: "easeInOutSine",
-          duration: 500,
-          delay: function(el, i) {
-            return i * 250;
-          }
-        });
-      }
     }
   }
 };
