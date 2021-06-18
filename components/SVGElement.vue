@@ -12,7 +12,7 @@ export default {
   },
   computed: {
     svg() {
-      return () => import(`@/assets/svg/${this.name}.svg`);
+      return () => import(`@/node_modules/@madcat/kanjivg/dist/main/${this.name}.svg`);
     }
   },
   updated: function() {
@@ -28,3 +28,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+svg {
+  width: 70px;
+  border-bottom: solid 1px;
+}
+</style>

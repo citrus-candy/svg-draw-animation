@@ -52,8 +52,7 @@ export default {
   display: flex;
   width: 60vw;
   flex-wrap: wrap;
-  justify-content: center;
-  border: solid 2px;
+  justify-content: flex-start;
   margin-top: 40px;
 }
 </style>
