@@ -1,43 +1,35 @@
 <template>
   <div class="container">
-    <div>
+    <SVGAnimation ref="svgAnim" :text="text" />
+    <div class="input_form">
       <input type="text" v-model="text" />
-      <button @click="draw">Draw</button>
-      <button @click="reset">Reset</button>
-    </div>
-    <div class="text_field">
-      <div class="svg" v-for="svgpath in svgpaths" :key="svgpath.key">
-        <SVGElement v-show="svgpath != '' && btnFlag" :name="svgpath" />
-      </div>
+      <button @click="draw()">Draw</button>
+      <button @click="reset()">Reset</button>
     </div>
   </div>
 </template>
 
 <script>
+import SVGAnimation from "../components/SVGAnimation.vue";
+
 export default {
-  data: () => ({ texts: [], text: "", svgpaths: [], btnFlag: false }),
+  components: { SVGAnimation },
+  data: () => ({
+    text: ""
+  }),
   methods: {
     draw() {
-      this.texts = [];
-      this.svgpaths = [];
-      this.texts = this.text.split("");
-      this.texts.forEach(e => {
-        this.svgpaths.push(("000" + e.charCodeAt(0).toString(16)).slice(-5));
-      });
-      console.log("svgpaths:[" + this.svgpaths + "]");
-      this.btnFlag = true;
+      this.$refs.svgAnim.draw();
     },
     reset() {
-      this.texts = [];
       this.text = "";
-      this.svgpaths = [];
-      this.btnFlag = false;
+      this.$refs.svgAnim.reset();
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -46,13 +38,5 @@ export default {
   align-items: center;
   text-align: center;
   flex-direction: column;
-}
-
-.text_field {
-  display: flex;
-  width: 60vw;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-top: 40px;
 }
 </style>
