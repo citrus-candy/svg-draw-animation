@@ -2,9 +2,11 @@
   <div class="container">
     <SVGAnimation ref="svgAnim" :text="text" />
     <div class="input_form">
-      <input type="text" v-model="text" />
-      <button @click="draw()">Draw</button>
-      <button @click="reset()">Reset</button>
+      <textarea type="text" v-model="text" />
+      <div class="button_field">
+        <!-- <button @click="draw()">Draw</button> -->
+        <button @click="reset()">Reset</button>
+      </div>
     </div>
   </div>
 </template>
@@ -38,5 +40,13 @@ export default {
   align-items: center;
   text-align: center;
   flex-direction: column;
+}
+
+textarea {
+  width: 300px;
+  height: 100px;
+}
+.input_form {
+  padding-top: 20px;
 }
 </style>

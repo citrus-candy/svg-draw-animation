@@ -7,10 +7,15 @@
 </template>
 
 <script>
+import SVGElement from "./SVGElement.vue";
+
 export default {
+  components: { SVGElement },
   props: {
     text: {
-      type: String
+      type: String,
+      required: true,
+      default: ""
     }
   },
   data: () => ({
@@ -23,16 +28,29 @@ export default {
       this.texts = [];
       this.svgpaths = [];
       this.texts = this.text.split("");
-      this.texts.forEach(e => {
-        this.svgpaths.push(("000" + e.charCodeAt(0).toString(16)).slice(-5));
+      this.texts.forEach((value, index) => {
+        this.svgpaths[index] = ("000" + value.charCodeAt(0).toString(16)).slice(
+          -5
+        );
       });
-      console.log("svgpaths:[" + this.svgpaths + "]");
+      // console.log("svgpaths:[" + this.svgpaths + "]");
       this.btnFlag = true;
     },
     reset() {
       this.texts = [];
       this.svgpaths = [];
       this.btnFlag = false;
+    }
+  },
+  created() {
+    this.draw();
+  },
+  watch: {
+    text(newValue, oldValue) {
+      this.draw();
+      var regexp = new RegExp(oldValue, "g");
+      var result = newValue.replace(regexp, "");
+      console.log(result);
     }
   }
 };
@@ -44,5 +62,7 @@ export default {
   width: 60vw;
   flex-wrap: wrap;
   align-content: flex-start;
+  padding: 20px;
+  border: solid;
 }
 </style>
